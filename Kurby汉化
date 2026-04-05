@@ -1,0 +1,215 @@
+local Translations = {
+    ["Kurby Hub | Bite By Night"] = "Kurby | 撕咬之夜",
+    ["Search"] = "搜索",
+    ["Info"] = "信息",
+    ["Emotes"] = "表情",
+    ["Tasks"] = "自动",
+    ["Local"] = "本地",
+    ["Visuals"] = "透视",
+    ["Combat"] = "战斗",
+    ["Anti-Lag"] = "防卡顿",
+    ["Other"] = "其他",
+    ["UI Settings"] = "界面设置",
+    ["Information"] = "信息",
+    ["Main script: Kurby"] = "脚本：Kurby",
+    ["Status Update"] = "状态更新",
+    ["SIDENOTE"] = "备注",
+    ["Executor Status:"] = "执行器状态：",
+    ["Executor you're using: Delta"] = "当前执行器：忍者",
+    ["We have ran 12/12 checks, and your executor seems to support our script."] = "已完成12/12项检查，执行器支持本脚本",
+    ["Toggle"] = "开关",
+    ["Lock"] = "锁定",
+    ["Emote Menu"] = "表情菜单",
+    ["Select Emote"] = "选择表情",
+    ["Select Emote First"] = "请先选择表情",
+    ["Scan Emotes Folder"] = "扫描表情文件夹",
+    ["Play Emote"] = "播放表情",
+    ["Automation"] = "自动",
+    ["Auto-Repair Generators"] = "自动修理发电机",
+    ["Auto-Repair Interval"] = "自动修理速度",
+    ["Auto-Shake Minions"] = "自动摇晃臭78虫子",
+    ["Instant Prompts"] = "瞬间互动",
+    ["Perfect Barricade"] = "完美堵门",
+    ["Auto-Kill (Killer Only)"] = "自动击杀（动画机器人仅有）",
+    ["Player Modifications"] = "玩家修改",
+    ["Infinite Stamina"] = "无限体力",
+    ["Custom stamina amount (Legacy)"] = "自定义体力值（旧版）没用",
+    ["Currently unused..."] = "当前未启用...",
+    ["Noclip"] = "穿墙",
+    ["Advanced Fly (PC)"] = "高级飞行(电脑)最好别用",
+    ["Advanced Fly (Mobile)"] = "高级飞行(手机)",
+    ["ESP Features"] = "透视功能",
+    ["Full Brightness"] = "全亮",
+    ["Name & Stamina ESP"] = "名字与体力透视",
+    ["Highlight all survivors"] = "透视玩家",
+    ["Detect Killer"] = "透视杀手",
+    ["Ennard's minions ESP"] = "透视78臭虫子",
+    ["Springtrap's bear-trap ESP"] = "弹簧陷阱透视",
+    ["Highlight all generators"] = "高亮发电机",
+    ["Highlight all fuses"] = "透视保险丝",
+    ["Highlight all batteries"] = "透视电池",
+    ["Aimbot & Parry"] = "自瞄与格挡",
+    ["Aimbot (Killer Focus)"] = "自瞄（动画机器人）",
+    ["Silent Aim (Hit Redirection)"] = "无息自瞄",
+    ["Auto-Parry (Anim & Sound)"] = "自动格挡",
+    ["Auto-Parry Radius"] = "自动格挡范围",
+    ["Auto-Parry Delay"] = "自动格挡延迟",
+    ["FPS Optimizations"] = "帧率优化",
+    ["MAZES LOW GFX OPTIMIZER MORE FPS!"] = "迷宫低画质优化 提升帧率",
+    ["Boost FPS"] = "提升帧率",
+    ["Reduce Lag (Disable Particles)"] = "减少卡顿（关闭粒子）",
+    ["Optimize Network"] = "网络优化",
+    ["Disable Shadows"] = "关闭阴影",
+    ["Clear Workspace Debris"] = "清除场景杂物",
+    ["Low Render Avatars"] = "低模角色",
+    ["External Hubs"] = "外部脚本",
+    ["Infinite Yield"] = "Infinite Yield",
+    ["CMD-X"] = "CMD-X",
+    ["Nameless Admin"] = "无名管理员",
+    ["Menu"] = "菜单",
+    ["Open Keybind Menu"] = "打开快捷键设置",
+    ["Custom Cursor"] = "自定义光标",
+    ["Notification Side"] = "通知位置",
+    ["Right"] = "右侧",
+    ["DPI Scale"] = "DPI缩放",
+    ["Menu bind"] = "菜单快捷键",
+    ["RightShift"] = "右Shift",
+    ["Unload"] = "卸载脚本",
+    ["Themes"] = "主题",
+    ["Background color"] = "背景色",
+    ["Main color"] = "主色",
+    ["Accent color"] = "强调色",
+    ["Outline color"] = "轮廓色",
+    ["Font color"] = "字体颜色",
+    ["Font Face"] = "字体",
+    ["Code"] = "代码字体",
+    ["Theme list"] = "主题列表",
+    ["Default"] = "默认",
+    ["Set as default"] = "设为默认",
+    ["Custom theme name"] = "自定义主题名",
+    ["Configuration"] = "配置",
+    ["Config name"] = "配置名称",
+    ["Create config"] = "创建配置",
+    ["Config list"] = "配置列表",
+    ["Load config"] = "加载配置",
+    ["Overwrite config"] = "覆盖配置",
+    ["Delete config"] = "删除配置",
+    ["Refresh list"] = "刷新列表",
+    ["Set as autoload"] = "设为自动加载",
+    ["Reset autoload"] = "重置自动加载",
+    ["Current autoload config: none"] = "当前自动加载：无",
+    ["Create theme"] = "创建主题",
+    ["Custom themes"] = "自定义主题",
+    ["Load theme"] = "加载主题",
+    ["Overwrite theme"] = "覆盖主题",
+    ["Delete theme"] = "删除主题",
+    ["Reset default"] = "重置默认"
+}
+
+local function translateText(text)
+    if not text or type(text) ~= "string" then return text end
+    if Translations[text] then return Translations[text] end
+    local translated = text
+    for en, cn in pairs(Translations) do
+        translated = translated:gsub(en, cn)
+    end
+    return translated
+end
+
+local translatedElements = {}
+local originalTexts = {}
+
+local function safeTranslateElement(element)
+    if translatedElements[element] then return end
+    
+    pcall(function()
+        if element:IsA("TextLabel") or element:IsA("TextButton") or element:IsA("TextBox") then
+            local currentText = element.Text
+            if currentText and currentText ~= "" then
+                if not originalTexts[element] then
+                    originalTexts[element] = currentText
+                end
+                
+                local translatedText = translateText(currentText)
+                if translatedText ~= currentText then
+                    element.Text = translatedText
+                    translatedElements[element] = true
+                end
+            end
+        end
+    end)
+end
+
+local function reTranslateAllUI()
+    translatedElements = {}
+    for _, gui in ipairs(game:GetService("CoreGui"):GetDescendants()) do
+        safeTranslateElement(gui)
+    end
+    local player = game:GetService("Players").LocalPlayer
+    if player and player:FindFirstChild("PlayerGui") then
+        for _, gui in ipairs(player.PlayerGui:GetDescendants()) do
+            safeTranslateElement(gui)
+        end
+    end
+end
+
+local function setupSmartListener()
+    local function onTextPropertyChanged(element)
+        if translatedElements[element] then
+            local currentText = element.Text
+            local originalText = originalTexts[element]
+            
+            if currentText == originalText or translateText(currentText) == currentText then
+                translatedElements[element] = nil
+                return
+            end
+            
+            local translatedText = translateText(currentText)
+            if translatedText ~= currentText then
+                element.Text = translatedText
+            end
+        else
+            safeTranslateElement(element)
+        end
+    end
+
+    local function addSmartListener(parent)
+        for _, desc in ipairs(parent:GetDescendants()) do
+            safeTranslateElement(desc)
+        end
+        parent.DescendantAdded:Connect(function(descendant)
+            task.wait(0.3)
+            safeTranslateElement(descendant)
+            
+            if descendant:IsA("TextLabel") or descendant:IsA("TextButton") or descendant:IsA("TextBox") then
+                descendant:GetPropertyChangedSignal("Text"):Connect(function()
+                    task.wait(0.1)
+                    onTextPropertyChanged(descendant)
+                end)
+            end
+        end)
+    end
+    
+    pcall(addSmartListener, game:GetService("CoreGui"))
+    local player = game:GetService("Players").LocalPlayer
+    if player and player:FindFirstChild("PlayerGui") then
+        pcall(addSmartListener, player.PlayerGui)
+    end
+end
+
+local function delayedInitialTranslate()
+    task.wait(5)
+    reTranslateAllUI()
+end
+
+task.wait(2)
+setupSmartListener()
+delayedInitialTranslate()
+
+local success, err = pcall(function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Kurbywtww/kurbys/refs/heads/main/bitebynight.lua"))()
+end)
+
+if not success then
+    warn("加载失败:", err)
+end
