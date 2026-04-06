@@ -104,9 +104,6 @@ local Translations = {
     ["Overwrite theme"] = "覆盖主题",
     ["Delete theme"] = "删除主题",
     ["Reset default"] = "重置默认"
-    ["Verify"] = "认证卡密",
-    ["Get Key"] = "获取卡密DC",
-    ["Key Input"] = "填卡密",
 }
 
 local function translateText(text)
